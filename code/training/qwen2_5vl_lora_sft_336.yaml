@@ -1,0 +1,59 @@
+### UAV VLN single-stage SFT, single 24GB GPU profile.
+### Run from the LLaMA-Factory repository root after preparing dataset_info.json.
+
+### model
+model_name_or_path: Qwen/Qwen2.5-VL-7B-Instruct
+trust_remote_code: true
+image_max_pixels: 112896          # 336 * 336, must match train_data_generate.py IMG_SIZE
+
+### method
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_target: q_proj,k_proj,v_proj,o_proj,gate_proj,up_proj,down_proj
+lora_rank: 64
+lora_alpha: 128
+lora_dropout: 0.05
+freeze_vision_tower: true
+freeze_multi_modal_projector: false
+freeze_language_model: false
+
+### dataset
+dataset_dir: data
+dataset: uav_full
+eval_dataset: uav_eval
+template: qwen2_vl
+cutoff_len: 3072
+overwrite_cache: true
+preprocessing_num_workers: 8
+dataloader_num_workers: 4
+packing: false
+
+### output
+output_dir: saves/qwen2_5vl-7b/lora/uav_sft_336
+logging_steps: 10
+save_steps: 200
+save_total_limit: 5
+plot_loss: true
+overwrite_output_dir: false
+save_only_model: false
+report_to: none
+
+### train
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 8
+learning_rate: 1.0e-5
+num_train_epochs: 3.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.05
+weight_decay: 0.01
+max_grad_norm: 1.0
+fp16: true
+gradient_checkpointing: true
+ddp_timeout: 180000000
+resume_from_checkpoint: null
+
+### eval
+per_device_eval_batch_size: 1
+eval_strategy: steps
+eval_steps: 200

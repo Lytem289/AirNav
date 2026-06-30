@@ -8,3 +8,7 @@ EvalPhotoData/
 TrainPhotoData/
 result/
 core.*
+.ipynb_checkpoints/
+..debug_gen/
+backup/
+eval_finetuned/

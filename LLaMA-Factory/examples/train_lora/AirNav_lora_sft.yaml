@@ -4,7 +4,7 @@ image_max_pixels: 262144
 video_max_pixels: 16384
 trust_remote_code: true
 
-flash_attn: fa
+flash_attn: fa2
 ### method
 stage: sft
 do_train: true

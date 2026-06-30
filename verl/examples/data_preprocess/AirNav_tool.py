@@ -19,7 +19,7 @@ def get_prompt(data):
             history_views_path.append(history_views[index])
     
     cur_view_path = data["cur_view"]
-    cur_pose = data["cur_position"]
+    # cur_pose = data["cur_position"]
     instruction = data["instruction"]
     #target_description = data["target_description"]
     history_actions = json.dumps(data["history_actions"])
@@ -142,10 +142,10 @@ def trans_data(benchmark_data):
             image_format.append(image_data)
         data["images"] = image_format
 
-        data["target_px"] = example["final_target_px"]
+        #data["target_px"] = example["final_target_px"]
         data["map_name"] = get_map_name(example["episode_id"])
-        data["cur_px"] = example["cur_position_px"]
-        data["cur_pose"] = example["cur_position"]
+        #data["cur_px"] = example["cur_position_px"]
+        #data["cur_pose"] = example["cur_position"]
         #data["raster"] = raster_cache[data["map_name"]]
 
 
@@ -159,7 +159,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    data_source = "/path/to/train/data/train.json"
+    data_source = "/tmp/AirNav/data/AirNav/train/train.json"
 
     with open(data_source, 'r') as f:
             benchmark_data = json.load(f)
@@ -173,10 +173,10 @@ if __name__ == "__main__":
             prompt = example.pop("prompt")
             ground_truth = example.pop("ground_truth")
             images = example.pop("images")
-            target_px = example.pop("target_px")
+            # target_px = example.pop("target_px")
             map_name = example.pop("map_name")
-            cur_px = example.pop("cur_px")
-            cur_pose = example.pop("cur_pose")
+            # cur_px = example.pop("cur_px")
+            # cur_pose = example.pop("cur_pose")
             #raster = example.pop("raster")
             data = {
                 "data_source": data_source,
@@ -191,10 +191,10 @@ if __name__ == "__main__":
                 "extra_info": {
                     "split": split,
                     "index": idx,
-                    "target_px": target_px,
+                    # "target_px": target_px,
                     "map_name": map_name,
-                    "cur_px": cur_px,
-                    "cur_pose": cur_pose
+                    # "cur_px": cur_px,
+                    # "cur_pose": cur_pose
                 },
             }
             return data
